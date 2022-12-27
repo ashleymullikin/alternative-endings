@@ -1,0 +1,69 @@
+<div class="dashboard-pic">
+<div class="container mt-6 p-4 has-background-warning-light post-indiv">
+  <h1 class="title is-size-2 mt-6">
+    {{post.title}}
+  </h1>
+  <p class="subtitle">
+    An Alternative Ending by {{post.user.username}} for <strong class="header-movie-title"></strong><br>
+    <span class="is-size-6">Posted on {{format_date post.created_at}}
+  </p>
+  </p>
+<iframe src="https://embed.lottiefiles.com/animation/61020"></iframe>
+
+  <div class="columns">
+    <div class="column box ml-4">
+      <p>{{post.content}}</p>
+    </div>
+    <div class="column">
+      <div class="is-flex searchresultsitem p-3">
+        <div class="mr-3 movieposter">
+          {{!-- movie poster goes here --}}
+        </div>
+        <div class="is-align-self-center searchresultsitemtitle p-4">
+          <p class="movietitle has-text-weight-bold is-size-5 mb-3">Movie Poster</p>
+          <p class="moviedescription"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button class="button is-normal is-link mr-2 upvote-btn">Upvote<i class="fa-solid fa-thumbs-up ml-3"></i></button>
+  {{#if post.comments.length}}
+  <hr />
+  <div class="row">
+    <p>{{post.comments.length}} comment(s):</p>
+  </div>
+  {{/if}}
+  <div class="list-group mt-3 mb-3 message is-danger card-background">
+    {{#each post.comments}}
+    <div class="list-group-item flex-column align-items-start">
+      <div class="d-flex w-100 justify-content-between">
+        <small class="text-muted message-header"><strong>User Name: {{user.username}}</strong>
+          Posted On:
+          {{format_date created_at}}</small>
+      </div>
+      <p class="mb-1 card-content">{{comment_body}}</p>
+    </div>
+    {{/each}}
+  </div>
+  {{#if loggedIn}}
+  <div class="row mb-3">
+    <div class="col">
+      <p class="lead">Add a comment</p>
+      <form class="comment-form">
+        <textarea name="comment-body has-background-link-light" class="input mb-3"></textarea><br>
+        <button type="submit" class="button branded-color">Submit</button>
+      </form>
+    </div>
+  </div>
+  {{/if}}
+</div>
+</div>
+
+{{#if loggedIn}}
+<script src="/js/comment.js"></script>
+<script src="/js/vote.js"></script>
+{{/if}}
+<script>
+  let postMovieId = {{post.movie_id}}
+</script>
+<script src="/js/getmoviedata.js"></script>
